@@ -5,9 +5,7 @@ Avtor: Mojca Žilavec
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2015/16.
 
 ## Tematika
-
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal. Tukaj boste
-napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Izbrala sem si temo analiza stipendiranja v Sloveniji in . Podatke sem dobila z Statističnega urada Slovenije, Kariernih centrov v Ljubljani in dodatnih preverjenih strani. Moj cilj je opredeliti, katerih štipendij je v Sloveniji največ, jih regijsko razdeliti (kje prevladuje regijsko največ štipendij) ter pokazati, ali imajo več štipendij dojaki ali študentje. 
 
 ## Program
 
