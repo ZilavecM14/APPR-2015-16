@@ -5,7 +5,7 @@ Avtor: Mojca Žilavec
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2015/16.
 
 ## Tematika
-Izbrala sem si temo analiza stipendiranja v Sloveniji in . Podatke sem dobila z Statističnega urada Slovenije, Kariernih centrov v Ljubljani in dodatnih preverjenih strani. Moj cilj je opredeliti, katerih štipendij je v Sloveniji največ, jih regijsko razdeliti (kje prevladuje regijsko največ štipendij) ter pokazati, ali imajo več štipendij dojaki ali študentje. 
+Izbrala sem si temo analiza stipendiranja v Sloveniji. Podatke sem dobila z Statističnega urada Slovenije, Kariernih centrov v Ljubljani in dodatnih preverjenih strani. Moj cilj je opredeliti, katerih štipendij je v Sloveniji največ, jih regijsko razdeliti (kje prevladuje regijsko največ štipendij) ter pokazati, ali imajo več štipendij dojaki ali študentje. Rada bi se osredotočila tudi na leto 2014, da preverimo koliko štipendij je bilo podeljenih v tem letu. 
 
 ## Program
 
