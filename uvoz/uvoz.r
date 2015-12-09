@@ -1,20 +1,28 @@
-# 2. faza: Uvoz podatkov
+require(dplyr)
+require(rvest)
+require(gsubfn)
 
-# Funkcija, ki uvozi podatke iz datoteke druzine.csv
-uvozi.druzine <- function() {
-  return(read.table("podatki/druzine.csv", sep = ";", as.is = TRUE,
-                      row.names = 1,
-                      col.names = c("obcina", "en", "dva", "tri", "stiri"),
-                      fileEncoding = "Windows-1250"))
-}
+url <- "http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2"
 
-# Zapišimo podatke v razpredelnico druzine.
-druzine <- uvozi.druzine()
+stran <- html_session(url) %>% read_html(encoding="UTF-8")
+tabela <- stran %>% html_node(xpath = "//table[@class='pxtable']") %>% html_table()
+Encoding(tabela[[1]]) <- "UTF-8"
+names(tabela) <- tabela[1,]
 
-obcine <- uvozi.obcine()
+skupaj <- tabela[3:11,]
+rownames(skupaj) <-skupaj[[1]]
+skupaj <- skupaj[,-1]
 
-# Če bi imeli več funkcij za uvoz in nekaterih npr. še ne bi
-# potrebovali v 3. fazi, bi bilo smiselno funkcije dati v svojo
-# datoteko, tukaj pa bi klicali tiste, ki jih potrebujemo v
-# 2. fazi. Seveda bi morali ustrezno datoteko uvoziti v prihodnjih
-# fazah.
+dijaki <- tabela[13:21,]
+rownames(dijaki) <- dijaki[[1]]
+dijaki <- dijaki[,-1]             
+
+studenti <- tabela[23:31,]
+rownames(studenti) <- studenti [[1]]
+studenti <- studenti[,-1]
+
+neznano <- tabela[33:41,]
+rownames(neznano) <- neznano[[1]]
+neznano <- neznano[,-1]
+
+
