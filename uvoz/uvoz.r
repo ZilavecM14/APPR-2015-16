@@ -31,7 +31,7 @@ tabela[,8]<-as.integer(tabela[,8])
 
 skupaj <- tabela[3:11,] #izberemo iz glavne tabele št vrstic in vsi stolpci
 rownames(skupaj) <-skupaj[[1]] #iz tabele dobimo vrsto štipendije 
-skupaj <- skupaj[,-1] #brez prvega stolpca iz tabele, da se ne ponovi
+skupaj <- skupaj[,-1]#brez prvega stolpca iz tabele, da se ne ponovi
 
 skupaj14 <- skupaj[1:9,7] #izberemo podeljene štipendije v letu 2014
 
