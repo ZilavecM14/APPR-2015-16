@@ -3,6 +3,7 @@
 require(dplyr)
 require(rvest)
 require(gsubfn)
+library(dplyr)
 
 #spletni naslov na katerem se nahaja tabela (SURS)
 url <- "http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2"
@@ -51,6 +52,17 @@ neznano <- neznano[,-1]
 
 neznano14 <- neznano[1:9,7]
 neznano141<-select(neznano[1:9,], 7)
+
+#Funkcija, ki uvozi podatke iz datoteke stipendije.csv
+uvozi.stipendije <-function() {
+  return(read.table("podatki/stipendije.csv", sep=";", as.is=TRUE,
+                    row.names = 1,
+                    fileEncoding = "UTF-8"))
+}
+
+#Zapisemo podatke v razpredelnico stipendije
+stipendije <- uvozi.stipendije
+
 
 
 
