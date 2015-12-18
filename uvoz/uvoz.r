@@ -22,7 +22,11 @@ tabela[32,2:8]<-"NaN"
 
 #Pretvorba nizov v character,integer
 tabela[,1]<-as.character(tabela[,1])
+<<<<<<< HEAD
 tabela[,2:8] <- apply (tabela[,2:8], 2, as.integer)
+=======
+tabela[,2:8]<-apply(tabela[,2:8], 2, as.integer)
+>>>>>>> a43ba8e5265b028d42e68b2b55626717ed4b1cb7
 
 #locimo od velike tabele, na vec manjsih tabel (skupaj, dijaki, studenti, neznano)
 
@@ -30,27 +34,44 @@ skupaj <- tabela[3:11,] #izberemo iz glavne tabele št vrstic in vsi stolpci
 rownames(skupaj) <-skupaj[[1]] #iz tabele dobimo vrsto štipendije 
 skupaj <- skupaj[,-1]#brez prvega stolpca iz tabele, da se ne ponovi
 
+<<<<<<< HEAD
 skupaj14 <- skupaj[1:9,7] #izberemo podeljene štipendije v letu 2014 v obliki vektorja
 skupaj141 <- select(skupaj[1:9,], 7) #izberemo podeljene štipendije v letu 2014 v obliki stolpca
+=======
+skupaj14 <- skupaj[1:9,7]
+skupaj1414 <- select(skupaj[1:9,],7) #izberemo podeljene štipendije v letu 2014
+>>>>>>> a43ba8e5265b028d42e68b2b55626717ed4b1cb7
 
 dijaki <- tabela[13:21,]
 rownames(dijaki) <- dijaki[[1]]
 dijaki<-dijaki[,-1]
 
 dijaki14 <- dijaki[1:9,7]
+<<<<<<< HEAD
 dijaki141 <- select(dijaki[1:9,], 7)
+=======
+dijaki1414<-select(dijaki[1:9,],7)
+>>>>>>> a43ba8e5265b028d42e68b2b55626717ed4b1cb7
 
 studenti <- tabela[23:31,]
 rownames(studenti) <- studenti [[1]]
 studenti <- studenti[,-1]
 
 studenti14 <- studenti[1:9,7]
+<<<<<<< HEAD
 studenti141<-select(studenti[1:9,], 7)
+=======
+studenti1414<-select(studenti[1:9,],7)
+>>>>>>> a43ba8e5265b028d42e68b2b55626717ed4b1cb7
 
 neznano <- tabela[33:41,]
 rownames(neznano) <- neznano[[1]]
 neznano <- neznano[,-1]
 
 neznano14 <- neznano[1:9,7]
+<<<<<<< HEAD
 neznano141<-select(neznano[1:9,], 7)
+=======
+neznano1414<-select(neznano[1:9,],7)
+>>>>>>> a43ba8e5265b028d42e68b2b55626717ed4b1cb7
 
