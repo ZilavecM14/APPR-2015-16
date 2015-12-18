@@ -1,3 +1,5 @@
+
+
 #2.FAZA
 #Izberemo različne pakete
 require(dplyr)
@@ -20,7 +22,7 @@ tabela[32,2:8]<-"NaN"
 
 #Pretvorba nizov v character,integer
 tabela[,1]<-as.character(tabela[,1])
-tabela[,2:8] <- apply(tabela[,2:8], 2, as.integer)
+tabela[,2:8] <- apply (tabela[,2:8], 2, as.integer)
 
 #locimo od velike tabele, na vec manjsih tabel (skupaj, dijaki, studenti, neznano)
 
