@@ -57,11 +57,11 @@ neznano141<-select(neznano[1:9,], 7)
 uvozi.stipendije <-function() {
   return(read.table("podatki/stipendije.csv", sep=";", as.is=TRUE,
                     row.names = 1,
-                    fileEncoding = "UTF-8"))
+                    fileEncoding = "Windows-1250"))
 }
 
 #Zapisemo podatke v razpredelnico stipendije
-stipendije <- uvozi.stipendije
+stipendije <- uvozi.stipendije ()
 
 
 
