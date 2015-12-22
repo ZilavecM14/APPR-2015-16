@@ -24,8 +24,10 @@ tabela$kategorija <- as.vector(t(matrix(rep(kategorije, 10), nrow=4)))
 tabela <- tabela[-seq(1, nrow(tabela), 10),]
 
 #Pretvorba nizov v character,integer
-tabela[,2]<-as.character(tabela[,2])
+tabela[,2]<-factor(tabela[,2])
 tabela[,3:9] <- apply (tabela[,3:9], 2, . %>% strapplyc("([0-9]*)") %>% unlist() %>% as.integer())
+
+#levels(tabela$vrsta) <- c("Drugo","Državne", "Kadrov. skupaj","Kadrov. nesofin.", "Kadrov. sof. nepos.", "Kadrov. sof. pos.","Zamejci in svet", "Zoisove")
 
 #locimo od velike tabele, na vec manjsih tabel
 #skupaj
@@ -48,7 +50,15 @@ neznano <- filter (tabela, kategorija == kategorija [4])
 neznano14 <-select(neznano, vrsta, X2014)
 neznano141 <- neznano[1:9,9]
 
-ggplot(data=tabela,aes(x=vrsta,y=X2014,color=kategorija))+geom_point()
+tabela$drzavna <- ifelse(tabela$vrsta == tabela$vrsta[6], "Državne štipendije",
+                         "Ostale štipendije")
+
+ggplot(data=tabela %>% filter(kategorija != kategorija[1], vrsta != vrsta[1]),
+       aes(x=drzavna,y=X2014,fill=kategorija))+geom_bar(stat = "identity") 
+
+ggplot(data=tabela %>% filter(kategorija != kategorija[1], ! vrsta %in% vrsta[c(1,6)]),
+       aes(x=vrsta,y=X2014,fill=kategorija))+geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) 
 
 #http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp
 #Funkcija, ki uvozi podatke iz datoteke stipendije.csv
