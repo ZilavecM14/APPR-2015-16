@@ -1,5 +1,5 @@
 #2.FAZA
-#Izberemo različne pakete
+#Izberemo razlicne pakete
 require(dplyr)
 require(rvest)
 require(gsubfn)
@@ -55,8 +55,8 @@ neznano141<-select(neznano[1:9,], 7)
 
 #Funkcija, ki uvozi podatke iz datoteke stipendije.csv
 uvozi.stipendije <-function() {
-  return(read.table("podatki/stipendije.csv", sep=";", as.is=TRUE,
-                    row.names = 1,
+  return(read.csv2("podatki/stipendije.csv", sep=";", as.is=TRUE,
+                    row.names = 0,
                     fileEncoding = "Windows-1250"))
 }
 
