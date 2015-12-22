@@ -13,17 +13,22 @@ stran <- html_session(url) %>% read_html(encoding="UTF-8")
 tabela <- stran %>% html_node(xpath = "//table[@class='pxtable']") %>% html_table()
 Encoding(tabela[[1]]) <- "UTF-8"
 names(tabela) <- tabela[1,]
+names(tabela)[2] <- "vrsta"
+tabela <- tabela[-c(1, nrow(tabela)),]
+tabela <- data.frame(kategorija = tabela[,1], tabela)
 
-tabela[2,2:8]<-"NaN"
-tabela[12,2:8]<-"NaN"
-tabela[22,2:8]<-"NaN"
-tabela[32,2:8]<-"NaN"
+kategorije <- factor(tabela$kategorija[seq(1,nrow(tabela),10)])
+tabela$kategorija <- as.vector(t(matrix(rep(kategorije, 10), nrow=4)))
+tabela <- tabela[-seq(1, nrow(tabela), 10),]
 
 #Pretvorba nizov v character,integer
-tabela[,1]<-as.character(tabela[,1])
-tabela[,2:8] <- apply (tabela[,2:8], 2, as.integer)
+tabela[,2]<-as.character(tabela[,2])
+tabela[,3:9] <- apply (tabela[,3:9], 2, . %>% strapplyc("([0-9]*)") %>% unlist() %>% as.integer())
 
 #locimo od velike tabele, na vec manjsih tabel (skupaj, dijaki, studenti, neznano)
+
+skupaj <- filter(tabela, kategorija == kategorije[1])
+skupaj14 <- select(skupaj, vrsta, X2014)
 
 skupaj <- tabela[3:11,] #izberemo iz glavne tabele št vrstic in vsi stolpci
 rownames(skupaj) <-skupaj[[1]] #iz tabele dobimo vrsto štipendije 
@@ -56,8 +61,11 @@ neznano141<-select(neznano[1:9,], 7)
 #Funkcija, ki uvozi podatke iz datoteke stipendije.csv
 uvozi.stipendije <-function() {
   return(read.csv2("podatki/stipendije.csv", sep=";", as.is=TRUE,
-                    row.names = 0,
-                    fileEncoding = "Windows-1250"))
+                    na.strings = "-", header = FALSE,
+                    fileEncoding = "Windows-1250",
+         col.names = c("regija", "kategorija", "vrsta",
+                       as.vector(outer(c("skupaj", "moski", "zenske", "neznano"),
+                                       2008:2014, paste0)))))
 }
 
 #Zapisemo podatke v razpredelnico stipendije
