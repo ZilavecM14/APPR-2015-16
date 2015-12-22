@@ -13,8 +13,8 @@ stran <- html_session(url) %>% read_html(encoding="UTF-8")
 tabela <- stran %>% html_node(xpath = "//table[@class='pxtable']") %>% html_table()
 Encoding(tabela[[1]]) <- "UTF-8"
 names(tabela) <- tabela[1,]
-names(tabela)[2] <- "vrsta"
-tabela <- tabela[-c(1, nrow(tabela)),]
+names(tabela)[1] <- "vrsta" #Poimenovan drugi stolpec tabele
+tabela <- tabela[-c(1, nrow(tabela)),] 
 tabela <- data.frame(kategorija = tabela[,1], tabela)
 
 kategorije <- factor(tabela$kategorija[seq(1,nrow(tabela),10)])
@@ -25,38 +25,26 @@ tabela <- tabela[-seq(1, nrow(tabela), 10),]
 tabela[,2]<-as.character(tabela[,2])
 tabela[,3:9] <- apply (tabela[,3:9], 2, . %>% strapplyc("([0-9]*)") %>% unlist() %>% as.integer())
 
-#locimo od velike tabele, na vec manjsih tabel (skupaj, dijaki, studenti, neznano)
+#locimo od velike tabele, na vec manjsih tabel
+#skupaj
+skupaj <- filter(tabela, kategorija == kategorije[1]) #izberemo po prvi kategoriji
+skupaj14 <- select(skupaj, vrsta, X2014) #ločimo na leto 2014
+skupaj141 <- skupaj[1:9,9] #izberemo podeljene štipendije v letu 2014 v obliki vektorja
 
-skupaj <- filter(tabela, kategorija == kategorije[1])
-skupaj14 <- select(skupaj, vrsta, X2014)
+#dijaki
+dijaki <- filter (tabela, kategorija == kategorije[2])
+dijaki14 <- select(dijaki, vrsta, X2014)
+dijaki141 <- dijaki[1:9,9]
 
-skupaj <- tabela[3:11,] #izberemo iz glavne tabele št vrstic in vsi stolpci
-rownames(skupaj) <-skupaj[[1]] #iz tabele dobimo vrsto štipendije 
-skupaj <- skupaj[,-1]#brez prvega stolpca iz tabele, da se ne ponovi
+#studenti
+studenti <- filter (tabela, kategorija == kategorije[3])
+studenti14<-select(studenti, vrsta, X2014)
+studenti141 <- studenti[1:9,9]
 
-skupaj14 <- skupaj[1:9,7] #izberemo podeljene štipendije v letu 2014 v obliki vektorja
-skupaj141 <- select(skupaj[1:9,], 7) #izberemo podeljene štipendije v letu 2014 v obliki stolpca
-
-dijaki <- tabela[13:21,]
-rownames(dijaki) <- dijaki[[1]]
-dijaki<-dijaki[,-1]
-
-dijaki14 <- dijaki[1:9,7]
-dijaki141 <- select(dijaki[1:9,], 7)
-
-studenti <- tabela[23:31,]
-rownames(studenti) <- studenti [[1]]
-studenti <- studenti[,-1]
-
-studenti14 <- studenti[1:9,7]
-studenti141<-select(studenti[1:9,], 7)
-
-neznano <- tabela[33:41,]
-rownames(neznano) <- neznano[[1]]
-neznano <- neznano[,-1]
-
-neznano14 <- neznano[1:9,7]
-neznano141<-select(neznano[1:9,], 7)
+#neznano
+neznano <- filter (tabela, kategorija == kategorija [4])
+neznano14 <-select(neznano, vrsta, X2014)
+neznano141 <- neznano[1:9,9]
 
 #Funkcija, ki uvozi podatke iz datoteke stipendije.csv
 uvozi.stipendije <-function() {
