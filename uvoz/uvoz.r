@@ -4,6 +4,8 @@ require(dplyr)
 require(rvest)
 require(gsubfn)
 library(dplyr)
+library(reshape2)
+library (ggplot2)
 
 #spletni naslov na katerem se nahaja tabela (SURS)
 url <- "http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2"
@@ -46,6 +48,9 @@ neznano <- filter (tabela, kategorija == kategorija [4])
 neznano14 <-select(neznano, vrsta, X2014)
 neznano141 <- neznano[1:9,9]
 
+ggplot(data=tabela,aes(x=vrsta,y=X2014,color=kategorija))+geom_point()
+
+#http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp
 #Funkcija, ki uvozi podatke iz datoteke stipendije.csv
 uvozi.stipendije <-function() {
   return(read.csv2("podatki/stipendije.csv", sep=";", as.is=TRUE,
@@ -59,6 +64,10 @@ uvozi.stipendije <-function() {
 #Zapisemo podatke v razpredelnico stipendije
 stipendije <- uvozi.stipendije ()
 
+#pobrisemo prazne stolpce 
+stipendije <- stipendije [,-c(7,11,15,19,23,31)]
+
+#ggplot(data=stipendije,aes(x=regija,y=skupaj2008,color=kategorija))+geom_point()
 
 
 
