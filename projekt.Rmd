@@ -34,6 +34,7 @@ Uvozila sem podatke o štipendijah v obliki CSV s statističnega urada ter v obl
 Prva uvožena razpredelnica je v obliki HTML s spletne strani (http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2). Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. 
 Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. Podatke sem prečistilna na naslednji način. 
 
+Slika \ref{fig:graf} prikazuje število podeljenih državnih in ostalih štipendij. 
 
 ```{r razpredelnice, echo=FALSE}
 kable(head(tabela))
@@ -42,8 +43,7 @@ kable(head(tabela))
 
 Drugo tabelo sem uvozila v obliki csv. Razpredelnico sem naložila s podatki o številu štipendij v različnih regijah v Soveniji, ločene na spol in leta. 
 
-```{r razpredelnice1
-, echo=FALSE}
+```{r razpredelnice1, echo=FALSE}
 kable(head(stipendije))
 
 ```
@@ -72,4 +72,3 @@ ggplot(data=tabela %>% filter(kategorija != kategorija[1], ! vrsta %in% vrsta[c(
 # Analiza in vizualizacija podatkov
 
 
-Slika \ref{fig:graf} prikazuje 
