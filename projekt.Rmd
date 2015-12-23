@@ -19,7 +19,7 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Izbrala sem si temo analiza stipendiranja v Sloveniji. Podatke sem dobila z Statističnega urada Slovenije, Kariernih centrov v Ljubljani. Moj cilj je opredeliti, katerih štipendij je v Sloveniji največ, jih regijsko razdeliti ter pokazati, ali imajo več štipendij dijaki, študentje, neznano. Osredotočila se bom tudi na leto 2014 in ugotovila, kako so bile podeljenje štipendije. 
+Izbrala sem si temo analiza stipendiranja v Sloveniji. Podatke sem dobila z Statističnega urada Slovenije, Kariernih centrov v Ljubljani. Moj cilj je opredeliti, katerih štipendij je v Sloveniji največ, jih regijsko razdeliti ter pokazati, ali imajo več štipendij dijaki, študentje, neznano. Osredotočila se bom tudi na leto 2014 in ugotovila, kako so bile podeljenje štipendije v tem letu.  
 
 ***
 
@@ -29,9 +29,9 @@ Izbrala sem si temo analiza stipendiranja v Sloveniji. Podatke sem dobila z Stat
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
-Uvozili smo podatke o štipendijah v obliki CSV s statističnega urada ter v obliki HTML z prav tako s statističnega urada republike Slovenije. 
+Uvozila sem podatke o štipendijah v obliki CSV s statističnega urada ter v obliki HTML z prav tako s statističnega urada republike Slovenije. 
 
-Prva uvožena razpredelnica je v obliki HTML. Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. 
+Prva uvožena razpredelnica je v obliki HTML s spletne strani (http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2). Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. 
 
 
 ```{r}
@@ -54,7 +54,7 @@ tabela <- tabela[-seq(1, nrow(tabela), 10),]
 
 ```
 
-V prvi razpredelnici sem prešistila podate.
+Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. Podatke sem prečistilna na naslednji način. 
 
 ```{r}
 #locimo od velike tabele, na vec manjsih tabel
@@ -101,11 +101,11 @@ stipendije <- uvozi.stipendije ()
 
 ```
 
-Slika \ref{fig:histogram} prikazuje porazdelitev števila naselij v občinah.
-
-```{r histogram, echo=FALSE, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-#hist(obcine[,4], main = "Pogostost števila naselij",
-#     xlab = "Število naselij", ylab = "Število občin")
-```
 
 ***
+
+
+# Analiza in vizualizacija podatkov
+
+
+Slika \ref{fig:graf} prikazuje 
