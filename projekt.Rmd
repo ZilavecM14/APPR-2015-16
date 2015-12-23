@@ -42,7 +42,8 @@ kable(head(tabela))
 
 Drugo tabelo sem uvozila v obliki csv. Razpredelnico sem naložila s podatki o številu štipendij v različnih regijah v Soveniji, ločene na spol in leta. 
 
-```{r razpredelnice, echo=FALSE}
+```{r razpredelnice1
+, echo=FALSE}
 kable(head(stipendije))
 
 ```
