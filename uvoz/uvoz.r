@@ -1,12 +1,4 @@
-#2.FAZA
-#Izberemo razlicne pakete
-require(dplyr)
-require(rvest)
-require(gsubfn)
-library(dplyr)
-library(reshape2)
-library (ggplot2)
-
+#2.FAZ
 #spletni naslov na katerem se nahaja tabela (SURS)
 url <- "http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2"
 
