@@ -34,12 +34,19 @@ Uvozila sem podatke o štipendijah v obliki CSV s statističnega urada ter v obl
 Prva uvožena razpredelnica je v obliki HTML s spletne strani (http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2). Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. 
 Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. Podatke sem prečistilna na naslednji način. 
 
+
+```{r razpredelnice, echo=FALSE}
+kable(head(tabela))
+
+```
+
 Drugo tabelo sem uvozila v obliki csv. Razpredelnico sem naložila s podatki o številu štipendij v različnih regijah v Soveniji, ločene na spol in leta. 
 
 ```{r razpredelnice, echo=FALSE}
-kable (head(tabela))
+kable(head(stipendije))
 
 ```
+
 
 Na podlagi prve tabele sem naredila dva grafa. Prvi graf prikazuje razporeditev državne štipendije, glede na vse ostale štipendije. Prvi stolpec prikazuje državne štipendije, drugi pa vse ostale. Dijaki, neznano in štipendije so vsake obravnane v svoje barve. 
 
