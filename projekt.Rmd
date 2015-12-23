@@ -101,6 +101,22 @@ stipendije <- uvozi.stipendije ()
 
 ```
 
+Na podlagi prve tabele sem naredila dva grafa. Prvi graf prikazuje razporeditev državne štipendije, glede na vse ostale štipendije. Prvi stolpec prikazuje državne štipendije, drugi pa vse ostale. Dijaki, neznano in štipendije so vsake obravnane v svoje barve. 
+
+```{r graf,echo=FALSE, FIG.CAP="Graf državne štipendije in ostale štipendije"}
+ggplot(data=tabela %>% filter(kategorija != kategorija[1], vrsta != vrsta[1]),
+       aes(x=drzavna,y=X2014,fill=kategorija))+geom_bar(stat = "identity") 
+
+```
+
+Drugi graf praikzuje razporeditev vseh štipendij, razen državnih. Ponovno so dijaki, študentje in neznano razporejeni v svoje kategorije. 
+
+```{r graf1,echo=FALSE, FIG.CAP="Graf vse štipendije"}
+ggplot(data=tabela %>% filter(kategorija != kategorija[1], ! vrsta %in% vrsta[c(1,6)]),
+       aes(x=vrsta,y=X2014,fill=kategorija))+geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) 
+
+```
 
 ***
 
