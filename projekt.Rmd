@@ -19,7 +19,7 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+Izbrala sem si temo analiza stipendiranja v Sloveniji. Podatke sem dobila z Statističnega urada Slovenije, Kariernih centrov v Ljubljani. Moj cilj je opredeliti, katerih štipendij je v Sloveniji največ, jih regijsko razdeliti ter pokazati, ali imajo več štipendij dijaki, študentje, neznano. Osredotočila se bom tudi na leto 2014 in ugotovila, kako so bile podeljenje štipendije. 
 
 ***
 
@@ -29,9 +29,13 @@ Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Poglejmo si začetka obeh uvoženih razpredelnic.
+Uvozili smo podatke o štipendijah v obliki CSV s statističnega urada ter v obliki HTML z prav tako s statističnega urada republike Slovenije. 
 
+Prva uvožena razpredelnica je v obliki HTML. Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. 
+
+Drugo tabelo sem uvozila v obliki csv. Razpredelnico sem naložila s podatki o številu štipendij v različnih regijah v Soveniji, ločene na spol in leta. 
+
+Poglejmo si začetka obeh uvoženih razpredelnic.
 
 Slika \ref{fig:histogram} prikazuje porazdelitev števila naselij v občinah.
 
