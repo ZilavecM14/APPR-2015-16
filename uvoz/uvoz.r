@@ -57,13 +57,45 @@ tidy$vrsta_kratka <- c("Drugo",
                          "Štipendije za Slovence v zamejstvu in po svetu" = "V zamejstvu in po svetu",
                          "Vrsta štipendije - SKUPAJ" = "Skupaj",
                          "Zoisove štipendije" = "Zoisove")[tidy$vrsta]
+dijaki$vrsta_kratka <- c("Drugo",
+                       "Državne štipendije" = "Državne",                            
+                       "Kadrovske štipendije - Skupaj" = "Kadrovske skupaj",
+                       "Kadrovske štipendije nesofinancirane" = "Kadrovske nesofinan.",
+                       "Kadrovske štipendije sofinancirane neposredno" = "Kadrovske sof. nepos.",
+                       "Kadrovske štipendije sofinancirane posredno" = "Kadrovske sof. pos.",   
+                       "Štipendije za Slovence v zamejstvu in po svetu" = "V zamejstvu in po svetu",
+                       "Vrsta štipendije - SKUPAJ" = "Skupaj",
+                       "Zoisove štipendije" = "Zoisove")[dijaki$vrsta]
+
+studenti$vrsta_kratka <- c("Drugo",
+                         "Državne štipendije" = "Državne",                            
+                         "Kadrovske štipendije - Skupaj" = "Kadrovske skupaj",
+                         "Kadrovske štipendije nesofinancirane" = "Kadrovske nesofinan.",
+                         "Kadrovske štipendije sofinancirane neposredno" = "Kadrovske sof. nepos.",
+                         "Kadrovske štipendije sofinancirane posredno" = "Kadrovske sof. pos.",   
+                         "Štipendije za Slovence v zamejstvu in po svetu" = "V zamejstvu in po svetu",
+                         "Vrsta štipendije - SKUPAJ" = "Skupaj",
+                         "Zoisove štipendije" = "Zoisove")[studenti$vrsta]
 
 ggplot(data=tidy %>% filter(kategorija != kategorija[1], vrsta != vrsta[1], leto == 2014),
-       aes(x=drzavna,y=stevilo,fill=kategorija))+geom_bar(stat = "identity")
+       aes(x=drzavna,y=stevilo,fill=kategorija))+geom_bar(stat = "identity")+ggtitle("Državne in ostale štipendije za leto 2014")
 
 ggplot(data=tidy %>% filter(kategorija != kategorija[1], ! vrsta %in% vrsta[c(1,6)], leto ==2014),
        aes(x=vrsta_kratka,y=stevilo,fill=kategorija))+geom_bar(stat = "identity") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + ggtitle ("Število štipendij za leto 2014")
+
+ggplot(data=dijaki, 
+       aes(x=leto, y=stevilo,color=vrsta_kratka))+
+  geom_line(size=0.5)+
+  geom_point(size=3, fill="black")+
+  ggtitle("Spreminjanje stevila stipendij za dijake")
+
+ggplot(data=studenti,
+       aes(x=leto, y=stevilo,color=vrsta_kratka))+
+  geom_line(size=0.5)+
+  geom_point(size=3, fill="black")+
+  ggtitle("Spreminjanje stevila stipendij za studente")
+
 
 #UVOZ 2
 #http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp
@@ -86,7 +118,33 @@ stipendije <- stipendije [,-c(7,11,15,19,23,31)]
 tidy2 <- melt(stipendije, value.name = "stevilo", variable.name = "leto")
 tidy2$leto <- tidy2$leto %>% as.character() %>% strapplyc("([0-9]+)") %>% as.numeric()
 
-#ggplot(data=stipendije,aes(x=regija,y=skupaj2008,color=kategorija))+geom_point()
+tidy2$drzavna <- ifelse (tidy2$vrsta == tidy2$vrsta[6], "Državne štipendije",
+                        "Ostale štipendije")
+
+tidy2$vrsta_kratka <- c("Drugo",
+                       "Državne štipendije" = "Državne", 
+                       "Kadrovske štipendije - Skupaj" = "Kadrovske skupaj",
+                       "Kadrovske štipendije nesofinancirane" = "Kadrovske nesofinan.",
+                       "Kadrovske štipendije sofinancirane neposredno" = "Kadrovske sof. nepos.",
+                       "Kadrovske štipendije sofinancirane posredno" = "Kadrovske sof. pos.",
+                       "Neznano",
+                       "Štipendije za Slovence v zamejstvu in po svetu" = "V zamejstvu in po svetu",
+                       "Vrsta štipendije - SKUPAJ" = "Skupaj",
+                       "Zoisove štipendije" = "Zoisove")[tidy2$vrsta]
+
+srednja <- filter (tidy2, kategorija == kategorije[2])
+srednja14 <- filter (srednja, leto == 2014)
+
+univerza <- filter (tidy2, kategorija == kategorije[3])
+univerza14<-filter (univerza, leto == 2014)
+
+#ggplot(data=srednja14,
+#       aes(x=regija,y=stevilo,color=vrsta))+
+#  geom_bar()+
+#  ggtitle("Stevilo stipendij po regijah za dijake za leto 2014")
+
+#ggplot(data=srednja14,
+#       aes(x=drzavna,y=stevilo,fill=regija))+geom_line(stat = "identity")+ggtitle("Državne in ostale štipendije za leto 2014")
 
 #UVOZ 3
 #http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp
@@ -103,3 +161,4 @@ visina <- uvozi.visina()
 
 tidy3 <- melt(visina, value.name = "povprecna visina", variable.name = "leto")
 tidy3$leto <- tidy3$leto %>% as.character() %>% strapplyc("([0-9]+)") %>% as.numeric()
+
