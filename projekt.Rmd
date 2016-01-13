@@ -8,7 +8,7 @@ output:
       in_header: lib/styles.sty
 ---
 
-```{r setup, echo=FALSE, results='hide', message=FALSE}
+```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
 # Če želimo nastaviti pisave v PDF-ju, odkomentiramo
 # in sledimo navodilom v programu.
 #source("fontconfig.r", encoding = "UTF-8")
@@ -19,16 +19,21 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
+<<<<<<< HEAD
 Izbrala sem si temo analiza stipendiranja v Sloveniji. Podatke sem dobila z Statističnega urada Slovenije, Kariernih centrov v Ljubljani. Moj cilj je opredeliti, katerih štipendij je v Sloveniji največ, jih regijsko razdeliti ter pokazati, ali imajo več štipendij dijaki, študentje, neznano. Osredotočila se bom tudi na leto 2014 in ugotovila, kako so bile podeljenje štipendije. 
+=======
+Izbrala sem si temo analiza stipendiranja v Sloveniji. Podatke sem dobila z Statističnega urada Slovenije, Kariernih centrov v Ljubljani. Moj cilj je opredeliti, katerih štipendij je v Sloveniji največ, jih regijsko razdeliti ter pokazati, ali imajo več štipendij dijaki, študentje, neznano. Osredotočila se bom tudi na leto 2014 in ugotovila, kako so bile podeljenje štipendije v tem letu.  
+>>>>>>> f971d3da5ab8e0a04abc5ac042e285d005f6b140
 
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
 
-```{r uvoz, echo=FALSE,message=FALSE, warning=FALSE}
+```{r uvoz, echo=FALSE}
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
+<<<<<<< HEAD
 Uvozili smo podatke o štipendijah v obliki CSV s statističnega urada ter v obliki HTML z prav tako s statističnega urada republike Slovenije. 
 Prva uvožena razpredelnica je v obliki HTML. Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. 
 Drugo tabelo sem uvozila v obliki csv. Razpredelnico sem naložila s podatki o številu štipendij v različnih regijah v Soveniji, ločene na spol in leta. 
@@ -76,10 +81,60 @@ studenti141 <- studenti[1:9,9]
 neznano <- filter (tabela, kategorija == kategorija [4])
 neznano14 <-select(neznano, vrsta, X2014)
 neznano141 <- neznano[1:9,9]
+=======
+Uvozila sem podatke o štipendijah v obliki CSV s statističnega urada ter v obliki HTML z prav tako s statističnega urada republike Slovenije. 
 
-```{r histogram, echo=FALSE, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-#hist(obcine[,4], main = "Pogostost števila naselij",
-#     xlab = "Število naselij", ylab = "Število občin")
+Prva uvožena razpredelnica je v obliki HTML s spletne strani (http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2). Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. 
+Podatke sem prečistilna na naslednji način. 
+
+Slika \ref{fig:graf} prikazuje število podeljenih državnih in ostalih štipendij. 
+
+```{r razpredelnice, echo=FALSE}
+kable(head(tabela))
+
+```
+
+```{r razpredelnice2, echo=FALSE}
+kable(head(skupaj))
+
+```
+
+
+```{r razredelnice, echo=FALSE}
+kable(head(skupaj14))
+
+```
+
+
+Drugo tabelo sem uvozila v obliki csv s spletne strani (http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp). Razpredelnico sem naložila s podatki o številu štipendij v različnih regijah v Soveniji, ločene na spol in leta. 
+
+```{r razpredelnice1, echo=FALSE}
+kable(head(stipendije))
+
+```
+
+
+Na podlagi prve tabele sem naredila dva grafa. Prvi graf prikazuje razporeditev državne štipendije, glede na vse ostale štipendije. Prvi stolpec prikazuje državne štipendije, drugi pa vse ostale. Dijaki, neznano in štipendije so vsake obravnane v svoje barve. 
+
+```{r graf,echo=FALSE, FIG.CAP="Graf državne štipendije in ostale štipendije"}
+ggplot(data=tabela %>% filter(kategorija != kategorija[1], vrsta != vrsta[1]),
+       aes(x=drzavna,y=X2014,fill=kategorija))+geom_bar(stat = "identity") 
+
+```
+
+Drugi graf praikzuje razporeditev vseh štipendij, razen državnih. Ponovno so dijaki, študentje in neznano razporejeni v svoje kategorije. 
+
+```{r graf1,echo=FALSE, FIG.CAP="Graf vse štipendije"}
+ggplot(data=tabela %>% filter(kategorija != kategorija[1], ! vrsta %in% vrsta[c(1,6)]),
+       aes(x=vrsta,y=X2014,fill=kategorija))+geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) 
+>>>>>>> f971d3da5ab8e0a04abc5ac042e285d005f6b140
+
 ```
 
 ***
+
+
+# Analiza in vizualizacija podatkov
+
+
