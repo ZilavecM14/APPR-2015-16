@@ -118,16 +118,16 @@ stipendije <- stipendije [,-c(7,11,15,19,23,31)]
 tidy2 <- melt(stipendije, value.name = "stevilo", variable.name = "leto")
 tidy2$leto <- tidy2$leto %>% as.character() %>% strapplyc("([0-9]+)") %>% as.numeric()
 
-tidy2$drzavna <- ifelse (tidy2$vrsta == tidy2$vrsta[6], "Državne štipendije",
+tidy2$delitev <- ifelse (tidy2$vrsta == tidy2$vrsta[6], "Državne štipendije",
                         "Ostale štipendije")
 
-tidy2$vrsta_kratka <- c("Drugo",
+tidy2$vrsta_kratka <- c("Druge štipendije" = "Druge",
                        "Državne štipendije" = "Državne", 
                        "Kadrovske štipendije - Skupaj" = "Kadrovske skupaj",
                        "Kadrovske štipendije nesofinancirane" = "Kadrovske nesofinan.",
                        "Kadrovske štipendije sofinancirane neposredno" = "Kadrovske sof. nepos.",
                        "Kadrovske štipendije sofinancirane posredno" = "Kadrovske sof. pos.",
-                       "Neznano",
+                       "Neznano" = "Neznano",
                        "Štipendije za Slovence v zamejstvu in po svetu" = "V zamejstvu in po svetu",
                        "Vrsta štipendije - SKUPAJ" = "Skupaj",
                        "Zoisove štipendije" = "Zoisove")[tidy2$vrsta]
@@ -138,13 +138,12 @@ srednja14 <- filter (srednja, leto == 2014)
 univerza <- filter (tidy2, kategorija == kategorije[3])
 univerza14<-filter (univerza, leto == 2014)
 
-#ggplot(data=srednja14,
-#       aes(x=regija,y=stevilo,color=vrsta))+
-#  geom_bar()+
-#  ggtitle("Stevilo stipendij po regijah za dijake za leto 2014")
-
-#ggplot(data=srednja14,
-#       aes(x=drzavna,y=stevilo,fill=regija))+geom_line(stat = "identity")+ggtitle("Državne in ostale štipendije za leto 2014")
+ggplot(data=srednja14,
+       aes(x=stevilo,y=vrsta,color=regija))+
+  geom_line(size=0.5)+
+  geom_point(size=1.5,fill="black")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))+ 
+  ggtitle ("Število štipendij za leto 2014")
 
 #UVOZ 3
 #http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp
