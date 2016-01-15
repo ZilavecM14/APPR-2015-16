@@ -33,7 +33,7 @@ Podatke sem prečistilna na naslednji način.
 Slika \ref{fig:graf} prikazuje število podeljenih državnih in ostalih štipendij. 
 
 ```{r razpredelnica, echo=FALSE}
-kable(head(tidy))
+kable(head(tabela))
 
 ```
 
