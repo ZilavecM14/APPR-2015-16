@@ -116,9 +116,11 @@ stevilo <- uvozi.stevilo()
 #UVOZ2B
 #http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp
 uvozi.stevilo8 <-function() {
-  return (read.csv2("podatki/stpreb.csv", sep=";",
+  return (read.csv2("podatki/stpreb8.csv", sep=";",
                     na.strings = "-",
                     fileEncoding = "Windows-1250"))
+}
+stevilo8 <- uvozi.stevilo8()
 
 #delitev na ostale in državne
 tidy2$delitev <- ifelse (tidy2$vrsta == tidy2$vrsta[6], "Državne štipendije",
