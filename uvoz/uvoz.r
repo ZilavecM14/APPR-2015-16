@@ -101,9 +101,6 @@ uvozi.stipendije <-function() {
 stipendije <- uvozi.stipendije ()
 stipendije <- stipendije[c("regija", "kategorija", "vrsta", paste0("skupaj", 2008:2014))]
 
-#pobrisemo prazne stolpce 
-#stipendije <- stipendije [,-c(7,11,15,19,23,31)]
-
 tidy2 <- melt(stipendije, value.name = "stevilo", variable.name = "leto")
 tidy2$leto <- tidy2$leto %>% as.character() %>% strapplyc("([0-9]+)") %>% as.numeric()
 
@@ -115,6 +112,13 @@ uvozi.stevilo <-function() {
                    fileEncoding = "Windows-1250"))
 }
 stevilo <- uvozi.stevilo()
+
+#UVOZ2B
+#http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp
+uvozi.stevilo8 <-function() {
+  return (read.csv2("podatki/stpreb.csv", sep=";",
+                    na.strings = "-",
+                    fileEncoding = "Windows-1250"))
 
 #delitev na ostale in državne
 tidy2$delitev <- ifelse (tidy2$vrsta == tidy2$vrsta[6], "Državne štipendije",

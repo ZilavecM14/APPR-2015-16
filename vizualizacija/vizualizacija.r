@@ -44,3 +44,13 @@ zem + geom_point(data = stevilo %>% inner_join(slo, by = c("regija" = "NAME_1"))
                summarise(x = mean(long), y = mean(lat)),
              aes(x = x, y = y, size = prebivalstvo/1000), color = "Blue")
 
+
+#ggplot() + geom_polygon (data = tidy2 %>%
+#                           filter(vrsta == vrsta[1], leto == 2008,
+#                                  kategorija == "Štipendije - SKUPAJ") %>%
+#                           inner_join(slo, by = c("regija" = "NAME_1")),
+#                         aes(x=long, y=lat, group=group, fill=stevilo),
+#                         color="grey") +
+#  scale_fill_gradient(low="#00FF00", high="#3F7F3F") +
+#  guides(fill = guide_colorbar
+#         (title = "Število skupaj za 2008"))
