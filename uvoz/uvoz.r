@@ -118,7 +118,7 @@ stevilo <- uvozi.stevilo()
 uvozi.stevilo8 <-function() {
   return (read.csv2("podatki/stpreb8.csv", sep=";",
                     na.strings = "-",
-                    fileEncoding = "Windows-1250"))
+                    fileEncoding = "UTF-8"))
 }
 stevilo8 <- uvozi.stevilo8()
 
