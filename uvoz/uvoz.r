@@ -59,7 +59,7 @@ neznano14 <-filter (neznano, leto == 2014)
 neznano141 <- neznano[55:63,4]
 
 #graf, s katerim delimo število štipendij glede na državne in ostale štipendije
-ggplot(data=tidy %>% filter(kategorija != kategorija[1], vrsta != vrsta[1], leto == 2014),
+graf1 <- ggplot(data=tidy %>% filter(kategorija != kategorija[1], vrsta != vrsta[1], leto == 2014),
        aes(x=drzavna,y=stevilo,fill=kategorija))+
   geom_bar(stat = "identity")+
   ggtitle("Državne in ostale štipendije za leto 2014")

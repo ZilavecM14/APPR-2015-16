@@ -15,6 +15,7 @@ output:
 
 # Uvoz vseh potrebnih knjižnic
 source("lib/libraries.r", encoding = "UTF-8")
+source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
 # Izbira teme
@@ -59,9 +60,7 @@ kable(head(stipendije))
 Na podlagi prve tabele sem naredila dva grafa. Prvi graf prikazuje razporeditev državne štipendije, glede na vse ostale štipendije. Prvi stolpec prikazuje državne štipendije, drugi pa vse ostale. Dijaki, neznano in štipendije so vsake obravnane v svoje barve. 
 
 ```{r graf,echo=FALSE, FIG.CAP="Graf državne štipendije in ostale štipendije"}
-ggplot(data=tabela %>% filter(kategorija != kategorija[1], vrsta != vrsta[1]),
-       aes(x=drzavna,y=X2014,fill=kategorija))+geom_bar(stat = "identity") 
-
+graf1
 ```
 
 Drugi graf praikzuje razporeditev vseh štipendij, razen državnih. Ponovno so dijaki, študentje in neznano razporejeni v svoje kategorije. 
