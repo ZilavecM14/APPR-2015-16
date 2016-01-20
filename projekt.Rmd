@@ -76,7 +76,7 @@ kable(head(dijakivisina0814))
 ```
 
 ```{r razpredelnica7, echo=FALSE}
-kabel(head(studentivisina0814))
+kable(head(studentivisina0814))
 
 ```
 
