@@ -59,27 +59,40 @@ neznano14 <-filter (neznano, leto == 2014)
 neznano141 <- neznano[55:63,4]
 
 #graf, s katerim delimo število štipendij glede na državne in ostale štipendije
-graf1 <- ggplot(data=tidy %>% filter(kategorija != kategorija[1], vrsta != vrsta[1], leto == 2014),
+graf0 <- ggplot(data=tidy %>% filter(kategorija != kategorija[1], vrsta != vrsta[1], leto == 2008),
+                aes(x=drzavna,y=stevilo,fill=kategorija))+
+  geom_bar(stat = "identity")+
+  ggtitle("Državne in ostale štipendije za leto 2008")
+
+#graf - število štipendij brez državnih štipendij
+graf1 <- ggplot(data=tidy %>% filter(kategorija != kategorija[1], ! vrsta %in% vrsta[c(1,6)], leto ==2008),
+                aes(x=vrsta_kratka,y=stevilo,fill=kategorija))+
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + 
+  ggtitle ("Število štipendij za leto 2008")
+
+#graf, s katerim delimo število štipendij glede na državne in ostale štipendije
+graf2 <- ggplot(data=tidy %>% filter(kategorija != kategorija[1], vrsta != vrsta[1], leto == 2014),
        aes(x=drzavna,y=stevilo,fill=kategorija))+
   geom_bar(stat = "identity")+
   ggtitle("Državne in ostale štipendije za leto 2014")
 
 #graf - število štipendij brez državnih štipendij
-ggplot(data=tidy %>% filter(kategorija != kategorija[1], ! vrsta %in% vrsta[c(1,6)], leto ==2014),
+graf3 <- ggplot(data=tidy %>% filter(kategorija != kategorija[1], ! vrsta %in% vrsta[c(1,6)], leto ==2014),
        aes(x=vrsta_kratka,y=stevilo,fill=kategorija))+
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + 
   ggtitle ("Število štipendij za leto 2014")
 
 #graf - število štipendij po vrstah za dijake za leta 2008-2014
-ggplot(data=dijaki, 
+graf4 <- ggplot(data=dijaki, 
        aes(x=leto, y=stevilo,color=vrsta_kratka))+
   geom_line(size=0.5)+
   geom_point(size=3, fill="black")+
   ggtitle("Spreminjanje stevila stipendij za dijake")
 
 #graf - število štipendij po vrstah za študente za leta 2008-2014
-ggplot(data=studenti,
+graf5 <- ggplot(data=studenti,
        aes(x=leto, y=stevilo,color=vrsta_kratka))+
   geom_line(size=0.5)+
   geom_point(size=3, fill="black")+
@@ -149,18 +162,10 @@ univerza0814<-filter (univerza, leto==2008|leto == 2014)
 u84 <- univerza0814  %>% filter(!regija %in% regija[1])
 
 # graf - število državnih in ostalih štipendij  za dijake za leto 2014
-ggplot(data=s84,
-       aes(x=regija,y=stevilo,color=leto))+
-  geom_step()+
+ggplot(data=s84, aes(x=regija,y=stevilo))+
+  geom_step() + geom_point(aes(color = factor(leto))) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   ggtitle("")
-
-#graf - število državnih in ostalih štipendij  za študente za leto 2014
-ggplot(data=univerza0814 %>% filter (!vrsta %in% vrsta[c(1)],
-                                   !regija %in% regija[1]),
-       aes(x=delitev,y=stevilo,fill=regija))+
-  geom_area(stat = "identity")+
-  ggtitle("Državne in ostale štipendije za študente po regijah leto 2014")
 
 #UVOZ 3
 #http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp
@@ -194,25 +199,29 @@ dijakivisina0814 <- filter (dijakivisina, leto == 2008| leto==2014)
 studentivisina <- filter (tidy3, kategorija == kategorije[3])
 studentivisina0814<-filter (studentivisina, leto == 2008|leto==2014)
 
-ggplot(data=dijakivisina %>% filter(!vrsta %in% vrsta[c(1)]),
+#graf 
+graf8 <- ggplot(data=dijakivisina %>% filter(!vrsta %in% vrsta[c(1)]),
        aes(x=vrsta_kratka,y=visina, fill=leto))+ 
   geom_bar(stat = "identity",colour="black")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + 
   ggtitle("Povprecna visina stipendije dijakom glede na vrsto od leta 2008 do leta 2014")
 
-ggplot(data=dijakivisina0814 %>% filter(!vrsta %in% vrsta[c(1)]),
+#graf
+graf9 <- ggplot(data=dijakivisina0814 %>% filter(!vrsta %in% vrsta[c(1)]),
        aes(x=vrsta_kratka,y=visina, fill=leto))+ 
   geom_bar(stat="identity",colour="black")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + 
   ggtitle("Povprecna visina stipendije dijakom glede na vrsto za leti 2008 in 2014")
 
-ggplot(data=studentivisina %>% filter(!vrsta %in% vrsta[c(1)]),
+#graf
+graf10 <- ggplot(data=studentivisina %>% filter(!vrsta %in% vrsta[c(1)]),
        aes(x=vrsta_kratka,y=visina, fill=leto))+ 
   geom_bar(stat = "identity",colour="black")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + 
   ggtitle("Povprecna visina stipendije studentom glede na vrsto od leta 2008 do leta 2014")
 
-ggplot(data=studentivisina0814 %>% filter(!vrsta %in% vrsta[c(1)]),
+#graf
+graf11 <- ggplot(data=studentivisina0814 %>% filter(!vrsta %in% vrsta[c(1)]),
        aes(x=vrsta_kratka,y=visina,fill=leto))+ 
   geom_bar(stat = "identity",colour="black")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + 

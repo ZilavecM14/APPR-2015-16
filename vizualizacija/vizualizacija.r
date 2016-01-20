@@ -29,13 +29,13 @@ skupaj2008 <- ggplot() + geom_polygon (data = tidy2 %>%
          (title = "Število skupaj za 2008")) + xlab("") + ylab("")
 
 #Zemljevid skupaj s številom prebivalcev po regijah
-skupaj2008 + geom_point(data=stevilo8 %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
+zem <- skupaj2008 + geom_point(data=stevilo8 %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
                         group_by(regija, prebivalstvo) %>%
                         summarise(x=mean(long), y=mean(lat)),
                       aes(x = x,y = y, size =prebivalstvo/1000), color="orange")
 
 #Zemljevid - kvocient med številom podeljenih štipendij in številom prebivalstva po regijah za 2008
-ggplot () + geom_polygon (data =tidy2 %>% inner_join(stevilo) %>%
+zem1 <- ggplot () + geom_polygon (data =tidy2 %>% inner_join(stevilo) %>%
                             filter(vrsta == vrsta[1], leto == 2008,
                                    kategorija == kategorije[1]) %>%
                             inner_join(slo, by= c("regija" = "NAME_1")),
@@ -57,13 +57,13 @@ skupaj2014 <- ggplot () + geom_polygon (data =tidy2 %>%
          (title = "Število skupaj za 2014")) + xlab("") + ylab("")
 
 #Zemljevid skupaj s številom prebivalcev po regijah
-skupaj2014 + geom_point(data = stevilo %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
+zem2 <- skupaj2014 + geom_point(data = stevilo %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
                           group_by(regija, prebivalstvo) %>%
                           summarise(x = mean(long), y = mean(lat)),
                         aes(x = x, y = y, size = prebivalstvo/1000), color = "orange")
 
 #Zemljevid - kvocient med številom podeljenih štipendij in številom prebivalstva po regijah za 2014
-ggplot () + geom_polygon (data =tidy2 %>% inner_join(stevilo) %>%
+zem3 <- ggplot () + geom_polygon (data =tidy2 %>% inner_join(stevilo) %>%
                             filter(vrsta == vrsta[1], leto == 2014,
                                    kategorija == kategorije[1]) %>%
                             inner_join(slo, by= c("regija" = "NAME_1")),
@@ -81,7 +81,7 @@ podatki14 <- tidy2 %>%
   filter(vrsta == vrsta[1], leto == 2014,
          kategorija == kategorije[1]) %>% select(regija, kategorija, vrsta, stevilo14 = stevilo)
 razlike <- inner_join(podatki08, podatki14) %>% mutate(razlika = stevilo14 - stevilo08)
-ggplot() + geom_polygon (data = razlike %>%
+zem4 <- ggplot() + geom_polygon (data = razlike %>%
                            inner_join(slo, by = c("regija" = "NAME_1")),
                          aes(x=long, y=lat, group=group, fill=razlika),
                          color="grey") +
@@ -101,7 +101,7 @@ dijaki2008 <- ggplot() + geom_polygon (data = tidy2 %>%
          (title = "Število dijakom za 2008")) + xlab("") + ylab("")
 
 #Zemljevid dijaki 2008 + imena regij
-dijaki2008 + geom_text(data=stevilo8 %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
+zem6 <- dijaki2008 + geom_text(data=stevilo8 %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
                          group_by(regija, prebivalstvo) %>%
                          summarise(x=mean(long), y=mean(lat)),
                        aes(x = x,y = y, label = regija), color="Black") 
@@ -118,7 +118,7 @@ dijaki2014 <-ggplot() + geom_polygon (data = tidy2 %>%
          (title = "Število dijakom za 2014")) + xlab("") + ylab("")
 
 #Zemljevid dijaki 2014 + imena regij
-dijaki2014 + geom_text(data=stevilo %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
+zem7 <- dijaki2014 + geom_text(data=stevilo %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
                          group_by(regija, prebivalstvo) %>%
                          summarise(x=mean(long), y=mean(lat)),
                        aes(x = x,y = y, label = regija), color="Black") 
@@ -135,7 +135,7 @@ studenti2008 <- ggplot() + geom_polygon (data=tidy2 %>%
          (title = "Število študentom za 2008")) + xlab("") + ylab("")
 
 #Zemljevid studenti 2008 + imena regij
-studenti2008 + geom_text(data=stevilo8 %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
+zem8 <- studenti2008 + geom_text(data=stevilo8 %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
                          group_by(regija, prebivalstvo) %>%
                          summarise(x=mean(long), y=mean(lat)),
                        aes(x = x,y = y, label = regija), color="Black") 
@@ -152,7 +152,7 @@ studenti2014 <- ggplot() + geom_polygon (data=tidy2 %>%
          (title = "Število študentom za 2014")) + xlab("") + ylab("")
 
 #Zemljevid studenti 2014 + imena regij
-studenti2014 + geom_text(data=stevilo %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
+zem9 <- studenti2014 + geom_text(data=stevilo %>% inner_join(slo, by = c("regija" = "NAME_1")) %>%
                            group_by(regija, prebivalstvo) %>%
                            summarise(x=mean(long), y=mean(lat)),
                          aes(x = x,y = y, label = regija), color="Black") 

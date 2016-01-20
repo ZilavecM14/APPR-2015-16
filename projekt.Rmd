@@ -16,59 +16,67 @@ output:
 # Uvoz vseh potrebnih knjižnic
 source("lib/libraries.r", encoding = "UTF-8")
 source("uvoz/uvoz.r", encoding = "UTF-8")
+source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
 
 # Izbira teme
 
-Izbrala sem si temo analiza stipendiranja v Sloveniji. Podatke sem dobila z Statističnega urada Slovenije, Kariernih centrov v Ljubljani. Moj cilj je opredeliti, katerih štipendij je v Sloveniji največ, jih regijsko razdeliti ter pokazati, ali imajo več štipendij dijaki, študentje, neznano. Osredotočila se bom tudi na leto 2014 in ugotovila, kako so bile podeljenje štipendije v tem letu.
-
+Izbrala sem si temo analiza štipendiranja v Sloveniji. Podatke sem pridobila s Statističnega urada republike Slovenije, pomagala pa sem si tudi z raziskavo Kariernih centrov v Ljubljani. 
+Moj cilj je opredelitev čim več spremenljivk in jih analizirati. Opredelila sem se na leti 2008 in 2014, saj sta ta dva podatka v SRUS-u najstarejši in najnovejši podatek ter je med njima največji razpon. V analizi želim opredeliti, katere vrste štipendije je podeljene največ in kako ta razdelitev soupada z dijaki in študenti. Analizirala bom tudi ali se je dinamika podeljevanja štipendij skozi leta spreminjala za različne vrste štipendij. Zanima me število podeljenih štipendij glede na regijo v Slovenijo v letih 2008 in 2014 za različne kategorije ljudi. Kot zadnjo stvar, ki jo bom analizirala je povprečna višina denarja za posamezno štipendijo in ali se ta razlikuje med dijaki in študenti. 
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
 
-Uvozila sem podatke o štipendijah v obliki CSV s statističnega urada ter v obliki HTML z prav tako s statističnega urada republike Slovenije. 
+Podatke o štipendijah v Sloveniji sem uvozila v obliki CSVin v obliki HTML s statističnega urada republike Slovenije.  
 
-Prva uvožena razpredelnica je v obliki HTML s spletne strani (http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2). Ker me zanimajo podatki o štipendijah po vrstah in izobrazbi, sem uvoženo tabelo s spletne strani razdelila na več manjših podtabel. Nato sem iz vsake podatabele izluščila leto 2014. 
-Podatke sem prečistilna na naslednji način. 
+Prva uvožena razpredelnica je v obliki HTML s spletne strani (http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2).Tabela prikazuje število različnih vrst podeljenih štipendij v letih od 2008-2014. Ker me zanimajo podatki po letih sem tabelo spremenila v tidy.data. 
 
 Slika \ref{fig:graf} prikazuje število podeljenih državnih in ostalih štipendij. 
 
 ```{r razpredelnica, echo=FALSE}
-kable(head(tabela))
+kable(head(tidy))
 
 ```
 
-```{r razpredelnice2, echo=FALSE}
-kable(head(skupaj))
+Tabelo sem nato razdelila na več manjših podtabel, glede na kategorijo (dijaki, študentje), saj je eden od mojih ciljev pridobiti infomracije kako se je spreminjala dinamika podeljevanja štipendij za dijake in študente. 
+```{r razpredelnica1, echo=FALSE}
+kable(head(dijaki))
 
 ```
 
-
-```{r razredelnice, echo=FALSE}
-kable(head(skupaj14))
-
-```
-
-
-Drugo tabelo sem uvozila v obliki csv s spletne strani (http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp). Razpredelnico sem naložila s podatki o številu štipendij v različnih regijah v Soveniji, ločene na spol in leta. 
-
-```{r razpredelnice1, echo=FALSE}
-kable(head(stipendije))
+```{r razredelnica2, echo=FALSE}
+kable(head(studenti))
 
 ```
 
-Na podlagi prve tabele sem naredila dva grafa. Prvi graf prikazuje razporeditev državne štipendije, glede na vse ostale štipendije. Prvi stolpec prikazuje državne štipendije, drugi pa vse ostale. Dijaki, neznano in štipendije so vsake obravnane v svoje barve. 
+Drugo tabelo sem uvozila v obliki CSV s spletne strani (http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp). Razpredelnico sem naložila s podatki o številu štipendij v različnih regijah v Soveniji, ločene na spol in leta. Ker me posamezni spol ne zanima, sem ustvarila novo spremenljivko in sicer skupaj, ki opredeljuje število štipendij podeljnih tako moškim kot ženskam (tudi neznano). Utvarila sem novo tabelo v tidydata. 
 
-```{r graf,echo=FALSE, FIG.CAP="Graf državne štipendije in ostale štipendije"}
-graf1
+```{r razpredelnica3, echo=FALSE}
+kable(head(tidy))
+
 ```
 
-Drugi graf praikzuje razporeditev vseh štipendij, razen državnih. Ponovno so dijaki, študentje in neznano razporejeni v svoje kategorije. 
+Tudi to tabelo sem razdelila na več manjših podatabel in sicer glede na kategorijo (dijaki, študentje9, leta (2008,2014) in vrsto štipendije. 
 
-```{r graf1,echo=FALSE, FIG.CAP="Graf vse štipendije"}
-ggplot(data=tabela %>% filter(kategorija != kategorija[1], ! vrsta %in% vrsta[c(1,6)]),
-       aes(x=vrsta,y=X2014,fill=kategorija))+geom_bar(stat = "identity") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) 
+```{r razpredelnica4, echo=FALSE}
+kable(head(s84))
+
+```
+
+```{r razpredelnica5, echo=FALSE}
+kable(head(u84))
+
+```
+
+Tretjo tabelo sem uvozila v obli CSV. Ta prikazuje povprečno višino štipendije za različne vrste štipendij. Opredeljena je za dijake in študente od leta 2008-2014. Zaradi lažje vizualizacije sem tudi to tabelo razdelila več manjših. Opredelila sem jih glede na kategorijo (dijaki ali študenjte), leta (2008 in 2014) ter kot glavno spremenjljivko vzela višino štipendije. 
+
+```{r razpredelnica5, echo=FALSE}
+kable(head(dijakivisina0814))
+
+```
+
+```{r razpredelnica, echo=FALSE}
+kabel(head(studentivisina0814))
 
 ```
 
@@ -77,4 +85,115 @@ ggplot(data=tabela %>% filter(kategorija != kategorija[1], ! vrsta %in% vrsta[c(
 
 # Analiza in vizualizacija podatkov
 
+Na podlagi prve tabele sem naredila šest grafov grafa. 
+Prvi graf prikazuje število podeljenih državnih štipendij, glede na vse ostale štipendije za leto 2008. Prvi stolpec prikazuje državne štipendije, drugi pa vse ostale. Dijaki, študentje in kategorija neznano so obravnani v različne barve. 
+
+```{r graf,echo=FALSE, FIG.CAP="Graf državne štipendije in ostale štipendije za 2008"}
+graf0
+
+```
+
+Drugi graf prikazuje število podeljenih štipendij med dijake, študente in neznano, z izjemo državnih štipendij. Dijaki, študentje, neznano so ponovno raporejeni v svoje kategorije. Graf je predstavljen za leto 2008. 
+
+```{r graf1,echo=FALSE, FIG.CAP="Graf število štipendij za leto 2008"}
+graf1
+```
+
+Tretji in četrti graf prikazujeta enake podatke kot graf 1 in 2, vendar z izjemo, da se predstavljeni podatki nanašajo na leto 2014. 
+
+```{r graf2,echo=FALSE, FIG.CAP="Graf državne štipendije in ostale štipendije za 2014"}
+graf2
+```
+
+```{r graf3,echo=FALSE, FIG.CAP="Graf število štipendij za leto 2014"}
+graf3
+```
+
+Peti graf prikazuje spreminjanje števila štipendij za dijake skozi obdobje od 2008 do 2014. Vrste so razdeljene v svoje kategorije, zato lahko z lahkoto odčitamo podatek, o nihanju števila podeljenih štipendij. 
+Šesti graf prikazuje spreminjanje števila štipendij za študente v istem obdobju. 
+
+```{r graf4,echo=FALSE, FIG.CAP="Spreminjanje števila štipendij za dijake"}
+graf4
+```
+
+```{r graf5,echo=FALSE, FIG.CAP="Spreminjanje števila štipendij za študente"}
+graf5
+```
+
+Na podlagi druge uvožene datoteke, sem ustvarila grada, ki prikazujeta število podeljenih štipendij za dijake in študente glede na regijo, iz katere prihajajo. Osredotočila sem se na leti 2008 in 2014. 
+
+```{r}
+
+```
+
+Tretja uvožena datoteka CSV mi je prinesla podatke o povprečni višini dodeljenih štipendij dijakom in študentom. 
+Deveti graf prikazuje povprečno višino štipendij podeljenih dijakom glede na vrsto od leta 2008 do leta 2014. Štipendije so ločene glede na vrsto. 
+
+```{r graf8,echo=FALSE, FIG.CAP="Povprečna višina štipendije dijakom glede na vrsto od 2008-2014"}
+graf8
+```
+
+Deseti graf prikazuje povprečno višino štipendije dijakom le za leti 2008 in 2014. 
+
+```{r graf9,echo=FALSE, FIG.CAP="Povprečna višina štipendije dijakom glede na vrsto za leti 2008 in 2014"}
+graf9
+```
+
+Enajsti in dvanajsti graf prikazujeta enake podatke kot deveti in desetih graf le da za študente. 
+
+```{r graf10,echo=FALSE, FIG.CAP="Povprečna višina štipendije študentom glede na vrsto od 2008-2014"}
+graf10
+```
+
+```{r graf11,echo=FALSE, FIG.CAP="Povprečna višina štipendije študentom glede na vrsto za leti 2008 in 2014"}
+graf11
+```
+
+Na podlagi uvoženih podatkov s SURS-a sem ustvarila tudi več zemljevidov glede na statistične regije v republiki Sloveniji. 
+Prvi zmeljevid, ki sem ga ustvarila prikazuje ptevilo podeljenih štipendih v posamezni regiji za leto 2008. Število podeljenih štipendij je v tem primeru skupaj za dijake in študente. Dodatno sem na zemljevid vključila tudi število prebivalcev, ki je živelo v posamezni statistični regiji. 
+
+```{r zem, echo=FALSE}
+zem
+```
+
+Drugi zemljevid prikazuje kvocient med številom podeljenih štipendij in številom prebivalcev v statistični regiji za leto 2008. Iz zemljevida lahko razberemo, kje je procent glede na število prebivalcev in številom podeljenih štipendij največji. 
+
+```{r zem1, echo=FALSE}
+zem1
+```
+
+Tretji in četrti zemljevid prikazujeta enake podatke kot prvi in drugi, samo da za leto 2014. 
+
+```{r zem2, echo=FALSE}
+zem2
+```
+
+```{r zem3, echo=FALSE}
+zem3
+```
+
+Peti zemljevid prikazuje razliko v številu podeljenih štipendij glede na leti 2008 in 2014. Iz grafa lahko razberemo, v kateri regiji se je število podeljenih štipendij v teh letih najbolj zmanjšalo in kje najmanj. 
+
+```{r zem4, echo = FALSE}
+zem4
+```
+
+Iz zemljevida šest in sedem lahko razberemo podatke o številu podeljenih štipendij za dijake za leti 2008 in 2014. 
+Iz zemljevida osem in devet pa podatke o številu podeljenih štipendij za študente za leti 2008 in 2014. 
+
+```{r zem6, echo=FALSE}
+zem6
+```
+
+```{r zem7,echo=FALSE}
+zem7
+```
+
+```{r zem8, echo=FALSE}
+zem8
+```
+
+```{r zem9, echo=FALSE}
+zem9
+```
 
