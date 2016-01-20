@@ -70,12 +70,12 @@ kable(head(u84))
 
 Tretjo tabelo sem uvozila v obli CSV. Ta prikazuje povprečno višino štipendije za različne vrste štipendij. Opredeljena je za dijake in študente od leta 2008-2014. Zaradi lažje vizualizacije sem tudi to tabelo razdelila več manjših. Opredelila sem jih glede na kategorijo (dijaki ali študenjte), leta (2008 in 2014) ter kot glavno spremenjljivko vzela višino štipendije. 
 
-```{r razpredelnica5, echo=FALSE}
+```{r razpredelnica6, echo=FALSE}
 kable(head(dijakivisina0814))
 
 ```
 
-```{r razpredelnica, echo=FALSE}
+```{r razpredelnica7, echo=FALSE}
 kabel(head(studentivisina0814))
 
 ```
