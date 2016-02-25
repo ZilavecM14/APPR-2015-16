@@ -123,10 +123,11 @@ zem7 <- dijaki2014 + geom_text(data=stevilo %>% inner_join(slo, by = c("regija" 
                          summarise(x=mean(long), y=mean(lat)),
                        aes(x = x,y = y, label = regija), color="Black") 
 
+kat <- unique(tidy2$kategorija)
 #Zemljevid število štipendij skupaj podeljenim študentom za leto 2008
 studenti2008 <- ggplot() + geom_polygon (data=tidy2 %>%
                            filter (vrsta==vrsta[1], leto == 2008,
-                                   kategorija == "Študentje") %>%
+                                   kategorija == kat[3]) %>%
                            inner_join(slo, by = c("regija" = "NAME_1")),
                          aes(x=long, y=lat, group=group, fill=stevilo),
                          color="grey") +
@@ -143,7 +144,7 @@ zem8 <- studenti2008 + geom_text(data=stevilo8 %>% inner_join(slo, by = c("regij
 #Zemljevid število štipendij skupaj podeljenim študentom za leto 2008
 studenti2014 <- ggplot() + geom_polygon (data=tidy2 %>%
                            filter (vrsta==vrsta[1], leto == 2014,
-                                   kategorija == "Študentje") %>%
+                                   kategorija == kat[3]) %>%
                            inner_join(slo, by = c("regija" = "NAME_1")),
                          aes(x=long, y=lat, group=group, fill=stevilo),
                          color="grey") +
