@@ -1,11 +1,13 @@
 ---
-title: "Poročilo pri predmetu Analiza podatkov s programom R-Analiza štipendiranja v Sloveniji"
+title: Poročilo pri predmetu Analiza podatkov s programom R-Analiza štipendiranja
+  v Sloveniji
 author: "Mojca Žilavec"
 output:
+  html_document: default
   pdf_document:
-    latex_engine: xelatex
     includes:
       in_header: lib/styles.sty
+    latex_engine: xelatex
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
