@@ -154,6 +154,8 @@ tidy2$kratko <- c("Druge štipendije" = "Druge",
                        "Zoisove štipendije" = "Zoisove")[tidy2$vrsta]
 
 srednja <- filter (tidy2, kategorija == kategorije[2], deli=="Skupaj")
+srednja1 <- filter (tidy2, kategorija == kategorije[2], kratko  %in% kratko[c(6,7)])
+data <- srednja1[-c(27,28,56,83,167,195), ]
 srednja0814 <- filter (srednja, leto==2008| leto == 2014)
 s84 <- srednja0814 %>% filter(!regija %in% regija[1])
 
@@ -226,4 +228,9 @@ graf11 <- ggplot(data=studentivisina0814 %>% filter(!vrsta %in% vrsta[c(1)]),
   geom_bar(stat = "identity",colour="black")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + 
   ggtitle("Povprecna visina stipendije studentom glede na vrsto za leti 2008 in 2014")
+
+# Funkcija za razbiranje natančnejših tabele:
+razberi <- function(x,y,podatki){
+  return(podatki[podatki[y] == x, names(podatki) != y])
+}
 

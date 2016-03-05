@@ -55,7 +55,7 @@ ggplot (novo2, aes(x=leto, y=stevilo))+ xlim (2008,2022) +
                fullrange = TRUE)
 
 #Filter po višini štipendij za dijake
-novo3 <- dijakivisina %>% filter (c)
+novo3 <- dijakivisina %>% filter (vrsta_kratka == "Skupaj")
 
 #Izpiše število štipendij
 lin <- lm(visina ~ leto, data=novo3)
