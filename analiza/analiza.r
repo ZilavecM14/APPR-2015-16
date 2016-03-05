@@ -13,13 +13,13 @@ ggplot(data=novo, aes(x=leto, y=stevilo))+ xlim(2008, 2022) +
 #Izpiše koeficient, prosti člen
 lin <- lm(stevilo ~ leto, data = novo)
 
-#Izpiše število štipendij od leta 2015 do leta 2020
-predict(lin, data.frame(leto = c(2015:2020)))
+#Izpiše število štipendij od leta 2015 do leta 2022
+predict(lin, data.frame(leto = c(2015:2022)))
 
 novo1 <- studenti %>% filter(vrsta_kratka == "Skupaj")
 
 lin <- lm(stevilo ~ leto, data=novo1)
-predict(lin, data.frame(leto = c(2015:2020)))
+predict(lin, data.frame(leto = c(2015:2022)))
 
 # izriše območje premikanja od leta 2008-2014 za študente
 g <- ggplot (novo1, aes(x=leto, y=stevilo))+ geom_point(fill = "black")
@@ -38,7 +38,7 @@ ggplot (novo1, aes(x=leto, y=stevilo))+ xlim (2008,2022) +
 novo2 <- dijaki %>% filter(vrsta_kratka == "Skupaj")
 
 lin <- lm(stevilo ~ leto, data=novo2)
-predict(lin, data.frame(leto = c(2015:2020)))
+predict(lin, data.frame(leto = c(2015:2022)))
 
 # izriše območje premikanja od leta 2008-2014 za dijake
 g <- ggplot (novo2, aes(x=leto, y=stevilo))+ geom_point(fill = "black")
@@ -54,4 +54,32 @@ ggplot (novo2, aes(x=leto, y=stevilo))+ xlim (2008,2022) +
   geom_smooth (method = "gam",formula = y ~ splines::bs(x, 4),
                fullrange = TRUE)
 
+#Filter po višini štipendij za dijake
+novo3 <- dijakivisina %>% filter (c)
 
+#Izpiše število štipendij
+lin <- lm(visina ~ leto, data=novo3)
+predict(lin, data.frame(leto = c(2015:2022)))
+
+#Napoved do leta 2022
+ggplot(data=novo3, aes(x=leto, y=visina))+ xlim (2008,2022) +
+  geom_point(size=3, fill="black")+
+  ggtitle("Napoved višine štipendij za dijake do leta 2022")+
+  geom_smooth(method ="lm",formula = y ~ x+I(x^2)+I(x^3),
+              fill ="blue", colour="darkblue", size=1, alpha=0.2,
+              fullrange=TRUE)
+
+#Filter po višini štipendij za študente
+novo4 <- studentivisina %>% filter (vrsta_kratka == "Skupaj")
+
+#Izpiše število štipendij
+lin <- lm(visina ~ leto, data=novo4)
+predict(lin, data.frame(leto = c(2015:2022)))
+
+#Napoved do leta 2022
+ggplot(data=novo4, aes(x=leto, y=visina))+ xlim (2008,2022) +
+  geom_point(size=3, fill="black")+
+  ggtitle("Napoved višine štipendij za študente do leta 2022")+
+  geom_smooth(method="gam",formula = y ~ x+I(x^2)+I(x^3),
+              fill ="red", colour="orange", size=1, alpha=0.2,
+              fullrange=TRUE)
