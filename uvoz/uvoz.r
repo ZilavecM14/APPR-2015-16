@@ -1,4 +1,4 @@
-#2.FAZ
+#2.FAZA
 #spletni naslov na katerem se nahaja tabela (SURS)
 url <- "http://pxweb.stat.si/pxweb/Dialog/viewplus.asp?ma=H111S&ti=&path=../Database/Hitre_Repozitorij/&lang=2"
 
