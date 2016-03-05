@@ -18,6 +18,9 @@ predict(lin, data.frame(leto = c(2015:2020)))
 
 novo1 <- studenti %>% filter(vrsta_kratka == "Skupaj")
 
+lin <- lm(stevilo ~ leto, data=novo1)
+predict(lin, data.frame(leto = c(2015:2020)))
+
 # izriše območje premikanja od leta 2008-2014 za študente
 g <- ggplot (novo1, aes(x=leto, y=stevilo))+ geom_point(fill = "black")
 z <- lowess(novo1$leto, novo1$stevilo)
@@ -33,6 +36,9 @@ ggplot (novo1, aes(x=leto, y=stevilo))+ xlim (2008,2022) +
                fullrange = TRUE)
 
 novo2 <- dijaki %>% filter(vrsta_kratka == "Skupaj")
+
+lin <- lm(stevilo ~ leto, data=novo2)
+predict(lin, data.frame(leto = c(2015:2020)))
 
 # izriše območje premikanja od leta 2008-2014 za dijake
 g <- ggplot (novo2, aes(x=leto, y=stevilo))+ geom_point(fill = "black")
