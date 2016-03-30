@@ -9,6 +9,8 @@ library(XML)
 library(eeptools)
 library(labeling)
 library(extrafont)
+library(mgcv)
+library(shiny)
 
 # Uvozimo funkcije za delo z datotekami XML.
 source("lib/xml.r", encoding = "UTF-8")
