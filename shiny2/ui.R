@@ -2,7 +2,7 @@ library(shiny)
 
 shinyUI(fluidPage(
   
-  titlePanel("Število štipendij po letih in regiji"),
+  titlePanel("Število štipendij po letih in vrsti štipendije"),
   
   sidebarLayout(
     sidebarPanel(
@@ -13,9 +13,9 @@ shinyUI(fluidPage(
                   value=2008, min=2008, max=2014, step=1, sep=""),
       
       selectInput(inputId="izb", label ="Izberi kategorijo:",
-                   choices = list ("Državne", "Zoisove"), 
+                   choices = list ("Državne", "Ostale"), 
                    selected = "Državne")),
-  mainPanel(plotOutput(outputId ="Grafstipendije"))
+  mainPanel(plotOutput(outputId ="Grafstipendije2"))
   )))
   
   
