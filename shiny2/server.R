@@ -8,11 +8,11 @@ library(shiny)
 shinyServer(function(input, output) {
   output$Grafstipendije2 <- renderPlot({
      
-    stipendijeleto2 <- filter(data, leto==input$izberi,
+    stipendijeleto <- filter(data, leto==input$izberi,
                              delitev == input$izb, regija !="SLOVENIJA")
     
     ggplot()+
-      geom_bar(data=stipendijeleto2,aes(x = regija, y = stevilo), 
+      geom_bar(data=stipendijeleto,aes(x = regija, y = stevilo), 
                stat="identity",fill="blue",size=10)+
       coord_flip()
   })
