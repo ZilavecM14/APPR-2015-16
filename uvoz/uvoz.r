@@ -164,10 +164,15 @@ univerza0814<-filter (univerza, leto==2008|leto == 2014)
 u84 <- univerza0814  %>% filter(!regija %in% regija[1])
 
 # graf - število državnih in ostalih štipendij  za dijake za leto 2014
-ggplot(data=s84, aes(x=regija,y=stevilo))+
+graf6 <- ggplot(data=s84, aes(x=regija,y=stevilo))+
   geom_step() + geom_point(aes(color = factor(leto))) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
-  ggtitle("")
+  ggtitle("Število podeljenih štipendij za leti 2008-2014 za dijake")
+
+graf7 <- ggplot(data=u84, aes(x=regija,y=stevilo))+
+  geom_step() + geom_point(aes(color = factor(leto))) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  ggtitle("Število podeljenih štipendij za leti 2008-2014 za študente")
 
 #UVOZ 3
 #http://pxweb.stat.si/pxweb/Dialog/Saveshow.asp
