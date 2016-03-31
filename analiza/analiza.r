@@ -29,8 +29,8 @@ loess(data = novo1, stevilo ~ leto, color="red")
 m + geom_smooth(method = "loess", size=1,fullrange = TRUE) 
 
 # napoved do leta 2022
-analiza2 <- gam (data = novo1, leto ~ stevilo, color = "red")
-ggplot (novo1, aes(x=leto, y=stevilo))+ xlim (2008,2022) +
+gam (data = novo1, leto ~ stevilo, color = "red")
+analiza2 <- ggplot (novo1, aes(x=leto, y=stevilo))+ xlim (2008,2022) +
   geom_line () + geom_point(fill="black") +
   geom_smooth (method = "gam",formula = y ~ splines::bs(x, 3),
                fullrange = TRUE)
@@ -48,8 +48,8 @@ loess(data = novo2, stevilo ~ leto, color="red")
 m + geom_smooth(method = "loess", size=1,fullrange = TRUE) 
 
 # napoved do leta 2022
-analiza3<-gam (data = novo2, leto ~ stevilo, color = "red")
-ggplot (novo2, aes(x=leto, y=stevilo))+ xlim (2008,2022) +
+gam (data = novo2, leto ~ stevilo, color = "red")
+analiza3 <- ggplot (novo2, aes(x=leto, y=stevilo))+ xlim (2008,2022) +
   geom_line () + geom_point(fill="black") +
   geom_smooth (method = "gam",formula = y ~ splines::bs(x, 4),
                fullrange = TRUE)
