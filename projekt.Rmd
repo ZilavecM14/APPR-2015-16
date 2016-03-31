@@ -8,6 +8,7 @@ output:
     includes:
       in_header: lib/styles.sty
     latex_engine: xelatex
+runtime: shiny
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
@@ -352,7 +353,24 @@ analiza5
 V prvem delu napredne analize sem kot variabilni spremevljivki vzela leto (2008-2014) in kategorijo (Državne in zoisove štipendije). Za variabilni spremeljivki lahko ugotavljamo konstantne vrednosti: število podljenih štipendij v določeni regiji. Podatki so prikazani v spodnjem grafu. 
 
 ```{r shiny1, echo=FALSE}
-shinyAppDir("shiny")
+shinyAppDir("shiny", options=list(width="100%", height=400))
 ```
+
+###Shiny 2
+
+V drugem delu napredne analize sem kot variabilni spremevljivki vzela leto (2008-2014) in kategorijo (Državne in ostale štipendije). Za variabilni spremeljivki lahko ugotavljamo konstantne vrednosti: število podljenih štipendij v določeni regiji. Podatki so prikazani v spodnjem grafu.
+
+```{r shiny2, echo=FALSE}
+shinyAppDir("shiny2", options=list(width="100%", height=400))
+```
+
+###Shiny 3
+
+V drugem delu napredne analize sem kot variabilni spremevljivki vzela leto (2008-2014) in kategorijo (Štipendije - Skupaj, dijaki, študentje in neznano). Za variabilni spremeljivki lahko ugotavljamo konstantne vrednosti: povprečna višina podeljenih štipendij glede na vrsto. Podatki so prikazani v spodnjem grafu.
+
+```{r shiny3, echo=FALSE}
+shinyAppDir("shiny3", options=list(width="100%", height=400))
+```
+
 
 
